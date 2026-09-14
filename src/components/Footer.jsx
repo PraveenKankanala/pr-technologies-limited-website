@@ -182,7 +182,7 @@ function Footer() {
                 className="footer-contact-item"
               >
                 <span className="footer-contact-icon">
-                  <Instagram size={17} aria-hidden="true" />
+                  <InstagramIcon size={20} />
                 </span>
 
                 <span>
