@@ -1,0 +1,722 @@
+/* ================================
+   Website Redesign Page
+   PR Technologies
+================================ */
+
+.website-redesign-page {
+  --wr-bg: #050505;
+  --wr-surface: #0c0c0c;
+  --wr-surface-2: #111111;
+  --wr-border: rgba(255, 255, 255, 0.1);
+  --wr-border-gold: rgba(212, 175, 55, 0.35);
+  --wr-text: #f5f5f5;
+  --wr-muted: #a7a7a7;
+  --wr-gold: #d4af37;
+  --wr-gold-light: #f1d77a;
+  --wr-max: 1200px;
+
+  min-height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 80% 10%, rgba(212, 175, 55, 0.1), transparent 28%),
+    radial-gradient(circle at 10% 45%, rgba(255, 255, 255, 0.035), transparent 25%),
+    var(--wr-bg);
+  color: var(--wr-text);
+}
+
+/* ================================
+   Shared
+================================ */
+
+.website-redesign-page .wr-container {
+  width: min(100% - 40px, var(--wr-max));
+  margin-inline: auto;
+}
+
+.website-redesign-page section {
+  position: relative;
+  padding: 100px 0;
+}
+
+.website-redesign-page .wr-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  color: var(--wr-gold-light);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.website-redesign-page .wr-section-heading {
+  max-width: 760px;
+  margin-bottom: 55px;
+}
+
+.website-redesign-page .wr-section-heading h2 {
+  margin: 0 0 16px;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+}
+
+.website-redesign-page .wr-section-heading p {
+  max-width: 680px;
+  margin: 0;
+  color: var(--wr-muted);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+/* ================================
+   Hero
+================================ */
+
+.website-redesign-page .wr-hero {
+  min-height: 720px;
+  display: flex;
+  align-items: center;
+  padding: 120px 0 100px;
+}
+
+.website-redesign-page .wr-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(380px, 0.95fr);
+  align-items: center;
+  gap: 70px;
+}
+
+.website-redesign-page .wr-hero-content h1 {
+  max-width: 760px;
+  margin: 0 0 24px;
+  font-size: clamp(2.8rem, 6vw, 5.6rem);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+
+.website-redesign-page .wr-hero-content h1 span {
+  background: linear-gradient(
+    110deg,
+    var(--wr-gold),
+    var(--wr-gold-light),
+    #ffffff
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.website-redesign-page .wr-hero-content > p {
+  max-width: 670px;
+  margin: 0 0 34px;
+  color: var(--wr-muted);
+  font-size: 1.08rem;
+  line-height: 1.8;
+}
+
+.website-redesign-page .wr-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.website-redesign-page .wr-primary-btn,
+.website-redesign-page .wr-secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 52px;
+  padding: 0 22px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease;
+}
+
+.website-redesign-page .wr-primary-btn {
+  border: 1px solid var(--wr-gold);
+  background: linear-gradient(135deg, var(--wr-gold), #b8911f);
+  color: #050505;
+  box-shadow: 0 12px 35px rgba(212, 175, 55, 0.18);
+}
+
+.website-redesign-page .wr-secondary-btn {
+  border: 1px solid var(--wr-border);
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--wr-text);
+}
+
+.website-redesign-page .wr-primary-btn:hover,
+.website-redesign-page .wr-secondary-btn:hover {
+  transform: translateY(-3px);
+}
+
+.website-redesign-page .wr-secondary-btn:hover {
+  border-color: var(--wr-border-gold);
+}
+
+/* ================================
+   Hero Visual
+================================ */
+
+.website-redesign-page .wr-visual {
+  position: relative;
+  perspective: 1200px;
+}
+
+.website-redesign-page .wr-browser {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  margin-left: auto;
+  overflow: hidden;
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  border-radius: 22px;
+  background: #090909;
+  box-shadow:
+    0 35px 90px rgba(0, 0, 0, 0.65),
+    0 0 70px rgba(212, 175, 55, 0.08);
+  transform: rotateY(-7deg) rotateX(3deg);
+  transition: transform 0.5s ease;
+}
+
+.website-redesign-page .wr-browser:hover {
+  transform: rotateY(-2deg) rotateX(1deg) translateY(-6px);
+}
+
+.website-redesign-page .wr-browser-top {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 42px;
+  padding: 0 15px;
+  border-bottom: 1px solid var(--wr-border);
+  background: #101010;
+}
+
+.website-redesign-page .wr-browser-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #555;
+}
+
+.website-redesign-page .wr-browser-body {
+  min-height: 390px;
+  padding: 26px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(212, 175, 55, 0.08),
+      transparent 45%
+    ),
+    #080808;
+}
+
+.website-redesign-page .wr-mock-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 45px;
+}
+
+.website-redesign-page .wr-mock-logo {
+  width: 90px;
+  height: 10px;
+  border-radius: 10px;
+  background: var(--wr-gold);
+}
+
+.website-redesign-page .wr-mock-links {
+  display: flex;
+  gap: 8px;
+}
+
+.website-redesign-page .wr-mock-links span {
+  width: 38px;
+  height: 6px;
+  border-radius: 8px;
+  background: #3a3a3a;
+}
+
+.website-redesign-page .wr-mock-content {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 22px;
+}
+
+.website-redesign-page .wr-mock-copy h3 {
+  margin: 0 0 13px;
+  font-size: 1.8rem;
+  line-height: 1.05;
+}
+
+.website-redesign-page .wr-mock-copy p {
+  width: 90%;
+  margin: 0 0 18px;
+  color: #858585;
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+
+.website-redesign-page .wr-mock-button {
+  display: inline-block;
+  width: 78px;
+  height: 25px;
+  border-radius: 20px;
+  background: var(--wr-gold);
+}
+
+.website-redesign-page .wr-mock-image {
+  min-height: 190px;
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  border-radius: 15px;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(212, 175, 55, 0.3), transparent 35%),
+    linear-gradient(145deg, #242424, #0c0c0c);
+}
+
+/* ================================
+   Benefits
+================================ */
+
+.website-redesign-page .wr-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.website-redesign-page .wr-benefit-card {
+  padding: 30px;
+  border: 1px solid var(--wr-border);
+  border-radius: 20px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.045), transparent),
+    var(--wr-surface);
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.website-redesign-page .wr-benefit-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--wr-border-gold);
+}
+
+.website-redesign-page .wr-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 22px;
+  border: 1px solid var(--wr-border-gold);
+  border-radius: 14px;
+  background: rgba(212, 175, 55, 0.07);
+  color: var(--wr-gold-light);
+}
+
+.website-redesign-page .wr-benefit-card h3 {
+  margin: 0 0 11px;
+  font-size: 1.15rem;
+}
+
+.website-redesign-page .wr-benefit-card p {
+  margin: 0;
+  color: var(--wr-muted);
+  line-height: 1.7;
+}
+
+/* ================================
+   Signs Section
+================================ */
+
+.website-redesign-page .wr-signs {
+  border-top: 1px solid var(--wr-border);
+  border-bottom: 1px solid var(--wr-border);
+  background: #080808;
+}
+
+.website-redesign-page .wr-signs-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.website-redesign-page .wr-signs-content h2 {
+  margin: 0 0 18px;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+}
+
+.website-redesign-page .wr-signs-content p {
+  margin: 0;
+  color: var(--wr-muted);
+  line-height: 1.8;
+}
+
+.website-redesign-page .wr-check-list {
+  display: grid;
+  gap: 15px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.website-redesign-page .wr-check-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  padding: 17px 18px;
+  border: 1px solid var(--wr-border);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.025);
+  color: #ddd;
+  line-height: 1.55;
+}
+
+.website-redesign-page .wr-check-list svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: var(--wr-gold);
+}
+
+/* ================================
+   Improvements
+================================ */
+
+.website-redesign-page .wr-improvements-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.website-redesign-page .wr-improvement {
+  position: relative;
+  min-height: 210px;
+  padding: 26px;
+  overflow: hidden;
+  border: 1px solid var(--wr-border);
+  border-radius: 18px;
+  background: var(--wr-surface);
+}
+
+.website-redesign-page .wr-improvement::after {
+  position: absolute;
+  right: -40px;
+  bottom: -50px;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.07);
+  content: "";
+}
+
+.website-redesign-page .wr-improvement h3 {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+}
+
+.website-redesign-page .wr-improvement p {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: var(--wr-muted);
+  font-size: 0.94rem;
+  line-height: 1.65;
+}
+
+/* ================================
+   Process
+================================ */
+
+.website-redesign-page .wr-process {
+  background:
+    linear-gradient(
+      180deg,
+      transparent,
+      rgba(212, 175, 55, 0.035),
+      transparent
+    );
+}
+
+.website-redesign-page .wr-process-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.website-redesign-page .wr-process-card {
+  position: relative;
+  padding: 28px;
+  border: 1px solid var(--wr-border);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.website-redesign-page .wr-process-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 22px;
+  border: 1px solid var(--wr-border-gold);
+  border-radius: 50%;
+  color: var(--wr-gold-light);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.website-redesign-page .wr-process-card h3 {
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+}
+
+.website-redesign-page .wr-process-card p {
+  margin: 0;
+  color: var(--wr-muted);
+  line-height: 1.7;
+}
+
+/* ================================
+   SEO Section
+================================ */
+
+.website-redesign-page .wr-seo-box {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 60px;
+  align-items: center;
+  padding: 55px;
+  border: 1px solid var(--wr-border-gold);
+  border-radius: 26px;
+  background:
+    radial-gradient(
+      circle at 90% 10%,
+      rgba(212, 175, 55, 0.1),
+      transparent 35%
+    ),
+    var(--wr-surface);
+}
+
+.website-redesign-page .wr-seo-box h2 {
+  margin: 0 0 16px;
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  line-height: 1.08;
+}
+
+.website-redesign-page .wr-seo-box > div > p {
+  margin: 0;
+  color: var(--wr-muted);
+  line-height: 1.8;
+}
+
+.website-redesign-page .wr-seo-points {
+  display: grid;
+  gap: 14px;
+}
+
+.website-redesign-page .wr-seo-point {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.website-redesign-page .wr-seo-point svg {
+  flex: 0 0 auto;
+  margin-top: 3px;
+  color: var(--wr-gold);
+}
+
+.website-redesign-page .wr-seo-point span {
+  color: #ddd;
+  line-height: 1.6;
+}
+
+/* ================================
+   CTA
+================================ */
+
+.website-redesign-page .wr-cta {
+  padding-top: 40px;
+}
+
+.website-redesign-page .wr-cta-box {
+  position: relative;
+  overflow: hidden;
+  padding: 70px 40px;
+  border: 1px solid var(--wr-border-gold);
+  border-radius: 28px;
+  text-align: center;
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(212, 175, 55, 0.15),
+      transparent 45%
+    ),
+    #0a0a0a;
+}
+
+.website-redesign-page .wr-cta-box::before {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  border: 1px solid rgba(212, 175, 55, 0.08);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  content: "";
+}
+
+.website-redesign-page .wr-cta-box h2,
+.website-redesign-page .wr-cta-box p,
+.website-redesign-page .wr-cta-box a {
+  position: relative;
+  z-index: 1;
+}
+
+.website-redesign-page .wr-cta-box h2 {
+  max-width: 750px;
+  margin: 0 auto 15px;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1.08;
+}
+
+.website-redesign-page .wr-cta-box p {
+  max-width: 650px;
+  margin: 0 auto 28px;
+  color: var(--wr-muted);
+  line-height: 1.8;
+}
+
+/* ================================
+   Accessibility
+================================ */
+
+.website-redesign-page a:focus-visible,
+.website-redesign-page button:focus-visible {
+  outline: 3px solid var(--wr-gold-light);
+  outline-offset: 4px;
+}
+
+/* ================================
+   Responsive
+================================ */
+
+@media (max-width: 1050px) {
+  .website-redesign-page .wr-hero-grid,
+  .website-redesign-page .wr-signs-grid,
+  .website-redesign-page .wr-seo-box {
+    grid-template-columns: 1fr;
+  }
+
+  .website-redesign-page .wr-browser {
+    margin: 0 auto;
+    transform: none;
+  }
+
+  .website-redesign-page .wr-browser:hover {
+    transform: translateY(-5px);
+  }
+
+  .website-redesign-page .wr-improvements-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .website-redesign-page .wr-seo-box {
+    gap: 35px;
+  }
+}
+
+@media (max-width: 760px) {
+  .website-redesign-page section {
+    padding: 75px 0;
+  }
+
+  .website-redesign-page .wr-container {
+    width: min(100% - 28px, var(--wr-max));
+  }
+
+  .website-redesign-page .wr-hero {
+    min-height: auto;
+    padding: 90px 0 70px;
+  }
+
+  .website-redesign-page .wr-hero-grid {
+    gap: 50px;
+  }
+
+  .website-redesign-page .wr-hero-content h1 {
+    font-size: clamp(2.5rem, 12vw, 4rem);
+  }
+
+  .website-redesign-page .wr-benefits-grid,
+  .website-redesign-page .wr-process-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .website-redesign-page .wr-improvements-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .website-redesign-page .wr-seo-box {
+    padding: 35px 24px;
+  }
+
+  .website-redesign-page .wr-cta-box {
+    padding: 55px 22px;
+  }
+}
+
+@media (max-width: 520px) {
+  .website-redesign-page .wr-hero-actions {
+    flex-direction: column;
+  }
+
+  .website-redesign-page .wr-primary-btn,
+  .website-redesign-page .wr-secondary-btn {
+    width: 100%;
+  }
+
+  .website-redesign-page .wr-browser-body {
+    min-height: 330px;
+    padding: 20px;
+  }
+
+  .website-redesign-page .wr-mock-content {
+    grid-template-columns: 1fr;
+  }
+
+  .website-redesign-page .wr-mock-image {
+    min-height: 120px;
+  }
+}
+
+/* ================================
+   Reduced Motion
+================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .website-redesign-page *,
+  .website-redesign-page *::before,
+  .website-redesign-page *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

@@ -1,0 +1,588 @@
+/* ========================================
+   PR Technologies
+   Premium Navbar
+======================================== */
+
+.site-header {
+  position: relative;
+  z-index: 1000;
+  width: 100%;
+}
+
+.site-navbar {
+  position: relative;
+  width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(5, 5, 5, 0.88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.navbar-container {
+  width: min(100% - 40px, 1280px);
+  min-height: 78px;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+/* ========================================
+   Logo
+======================================== */
+
+.navbar-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  flex: 0 0 auto;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navbar-logo-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 43px;
+  height: 43px;
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  border-radius: 12px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(212, 175, 55, 0.14),
+      rgba(255, 255, 255, 0.02)
+    );
+  color: #f1d777;
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.06);
+}
+
+.navbar-logo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.navbar-logo-text strong {
+  color: #f5f5f5;
+  font-size: 0.94rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.navbar-logo-text small {
+  color: #777;
+  font-size: 0.46rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+
+/* ========================================
+   Desktop Navigation
+======================================== */
+
+.navbar-desktop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.navbar-link,
+.navbar-services-trigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 44px;
+  padding: 0 11px;
+  border: 0;
+  background: transparent;
+  color: #999;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
+}
+
+.navbar-link::after {
+  position: absolute;
+  right: 11px;
+  bottom: 5px;
+  left: 11px;
+  height: 1px;
+  background: #d4af37;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.2s ease;
+  content: "";
+}
+
+.navbar-link:hover,
+.navbar-services-trigger:hover,
+.navbar-link.active {
+  color: #f1d777;
+}
+
+.navbar-link.active::after,
+.navbar-link:hover::after {
+  transform: scaleX(1);
+}
+
+.navbar-services-trigger svg {
+  transition: transform 0.2s ease;
+}
+
+.navbar-services-trigger svg.rotate {
+  transform: rotate(180deg);
+}
+
+/* ========================================
+   Services Dropdown
+======================================== */
+
+.navbar-services {
+  position: relative;
+}
+
+.navbar-dropdown {
+  position: absolute;
+  top: calc(100% + 9px);
+  left: 50%;
+  width: 275px;
+  padding: 10px;
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  border-radius: 16px;
+  background: rgba(10, 10, 10, 0.98);
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.65),
+    0 0 35px rgba(212, 175, 55, 0.04);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -8px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.navbar-dropdown.open,
+.navbar-services:hover .navbar-dropdown {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+
+.navbar-dropdown-heading {
+  padding: 12px 13px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.navbar-dropdown-heading span {
+  display: block;
+  margin-bottom: 4px;
+  color: #777;
+  font-size: 0.57rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.navbar-dropdown-heading strong {
+  color: #eee;
+  font-size: 0.85rem;
+}
+
+.navbar-dropdown-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  min-height: 45px;
+  padding: 0 13px;
+  border-radius: 9px;
+  color: #aaa;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    padding 0.2s ease;
+}
+
+.navbar-dropdown-link svg {
+  color: #666;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.navbar-dropdown-link:hover {
+  padding-right: 10px;
+  background: rgba(212, 175, 55, 0.07);
+  color: #f1d777;
+}
+
+.navbar-dropdown-link:hover svg {
+  color: #f1d777;
+  transform: translateX(3px);
+}
+
+/* ========================================
+   Booking CTA
+======================================== */
+
+.navbar-booking-btn {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 43px;
+  padding: 0 17px;
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  border-radius: 999px;
+  background: linear-gradient(
+    110deg,
+    rgba(212, 175, 55, 0.14),
+    rgba(212, 175, 55, 0.04)
+  );
+  color: #f1d777;
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.navbar-booking-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(
+    110deg,
+    rgba(212, 175, 55, 0.22),
+    rgba(212, 175, 55, 0.07)
+  );
+  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.1);
+}
+
+/* ========================================
+   Mobile Menu Button
+======================================== */
+
+.navbar-menu-button {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  margin-left: auto;
+  padding: 0;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.025);
+  color: #f1d777;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.navbar-menu-button:hover {
+  border-color: rgba(212, 175, 55, 0.5);
+  background: rgba(212, 175, 55, 0.07);
+}
+
+.navbar-menu-button.open {
+  background: rgba(212, 175, 55, 0.08);
+}
+
+/* ========================================
+   Mobile Navigation
+======================================== */
+
+.navbar-mobile {
+  display: none;
+}
+
+.navbar-mobile-inner {
+  width: min(100% - 28px, 600px);
+  margin-inline: auto;
+  padding: 12px 0 25px;
+}
+
+.navbar-mobile-link,
+.navbar-mobile-services-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 55px;
+  padding: 0 14px;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: transparent;
+  color: #aaa;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-align: left;
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    padding 0.2s ease,
+    background 0.2s ease;
+}
+
+.navbar-mobile-link svg {
+  color: #666;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.navbar-mobile-link:hover,
+.navbar-mobile-link.active {
+  padding-left: 18px;
+  background: rgba(212, 175, 55, 0.035);
+  color: #f1d777;
+}
+
+.navbar-mobile-link:hover svg,
+.navbar-mobile-link.active svg {
+  color: #f1d777;
+  transform: translateX(3px);
+}
+
+/* ========================================
+   Mobile Services
+======================================== */
+
+.navbar-mobile-services {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.navbar-mobile-services-trigger {
+  border-bottom: 0;
+}
+
+.navbar-mobile-services-trigger:hover,
+.navbar-mobile-services-trigger.open {
+  color: #f1d777;
+}
+
+.navbar-mobile-services-trigger svg {
+  transition: transform 0.2s ease;
+}
+
+.navbar-mobile-services-trigger svg.rotate {
+  transform: rotate(180deg);
+}
+
+.navbar-mobile-service-list {
+  display: grid;
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 10px;
+  opacity: 0;
+  transition:
+    max-height 0.3s ease,
+    opacity 0.2s ease,
+    padding 0.3s ease;
+}
+
+.navbar-mobile-service-list.open {
+  max-height: 350px;
+  padding-top: 5px;
+  padding-bottom: 8px;
+  opacity: 1;
+}
+
+.navbar-mobile-service-list a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 43px;
+  padding: 0 13px;
+  border-radius: 8px;
+  color: #888;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    padding 0.2s ease;
+}
+
+.navbar-mobile-service-list a svg {
+  color: #555;
+}
+
+.navbar-mobile-service-list a:hover {
+  padding-left: 17px;
+  background: rgba(212, 175, 55, 0.05);
+  color: #f1d777;
+}
+
+.navbar-mobile-service-list a:hover svg {
+  color: #f1d777;
+}
+
+/* ========================================
+   Mobile Booking
+======================================== */
+
+.navbar-mobile-booking {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 51px;
+  margin-top: 17px;
+  padding: 0 18px;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: 999px;
+  background: linear-gradient(
+    110deg,
+    #d4af37,
+    #f1d777
+  );
+  color: #050505;
+  font-size: 0.82rem;
+  font-weight: 900;
+  text-decoration: none;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.navbar-mobile-booking:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 13px 30px rgba(212, 175, 55, 0.18);
+}
+
+.navbar-mobile-booking svg:last-child {
+  margin-left: 2px;
+}
+
+/* ========================================
+   Focus Accessibility
+======================================== */
+
+.site-header a:focus-visible,
+.site-header button:focus-visible {
+  outline: 3px solid #f1d777;
+  outline-offset: 3px;
+}
+
+/* ========================================
+   Tablet
+======================================== */
+
+@media (max-width: 1120px) {
+  .navbar-container {
+    gap: 15px;
+  }
+
+  .navbar-logo-text small {
+    display: none;
+  }
+
+  .navbar-link,
+  .navbar-services-trigger {
+    padding-inline: 8px;
+    font-size: 0.75rem;
+  }
+
+  .navbar-booking-btn {
+    padding-inline: 13px;
+    font-size: 0.72rem;
+  }
+}
+
+/* ========================================
+   Mobile
+======================================== */
+
+@media (max-width: 900px) {
+  .navbar-container {
+    min-height: 70px;
+  }
+
+  .navbar-desktop,
+  .navbar-booking-btn {
+    display: none;
+  }
+
+  .navbar-menu-button {
+    display: flex;
+  }
+
+  .navbar-mobile {
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    border-top: 0 solid rgba(255, 255, 255, 0.07);
+    background: rgba(7, 7, 7, 0.98);
+    opacity: 0;
+    transition:
+      max-height 0.35s ease,
+      opacity 0.25s ease,
+      border-color 0.25s ease;
+  }
+
+  .navbar-mobile.open {
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+    border-top-width: 1px;
+    opacity: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-container {
+    width: min(100% - 24px, 1280px);
+  }
+
+  .navbar-logo-mark {
+    width: 40px;
+    height: 40px;
+  }
+
+  .navbar-logo-text strong {
+    font-size: 0.86rem;
+  }
+
+  .navbar-mobile-inner {
+    width: min(100% - 22px, 600px);
+  }
+}
+
+/* ========================================
+   Reduced Motion
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header *,
+  .site-header *::before,
+  .site-header *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

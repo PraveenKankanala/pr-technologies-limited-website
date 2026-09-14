@@ -1,0 +1,25 @@
+html {
+  scroll-padding-top: 90px;
+}
+
+::selection {
+  color: #111;
+  background: #d8bc67;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #070707;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #292929;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4a4a4a;
+}
