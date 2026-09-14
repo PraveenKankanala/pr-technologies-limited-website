@@ -2,6 +2,7 @@ import {
   ArrowRight,
   BarChart3,
   CheckCircle2,
+  Gauge,
   CreditCard,
   Globe,
   Layers3,
