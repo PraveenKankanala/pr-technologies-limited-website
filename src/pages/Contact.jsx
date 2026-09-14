@@ -212,7 +212,7 @@ function Contact() {
               aria-label="Visit PR Technologies on Instagram"
             >
               <div className="contact-info-icon">
-                <Instagram size={25} aria-hidden="true" />
+                <InstagramIcon size={25} />
               </div>
 
               <div className="contact-info-content">
