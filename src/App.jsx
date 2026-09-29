@@ -26,20 +26,6 @@ function LoadingScreen() {
   );
 }
 
-function NotFound() {
-  return (
-    <main className="not-found-page">
-      <div>
-        <span>404</span>
-        <h1>Page Not Found</h1>
-        <p>
-          The page you are looking for does not exist or may have been moved.
-        </p>
-        <a href="/">Return Home</a>
-      </div>
-    </main>
-  );
-}
 
 function App() {
   return (
