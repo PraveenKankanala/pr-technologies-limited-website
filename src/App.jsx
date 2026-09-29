@@ -16,6 +16,7 @@ const Pricing = lazy(() => import("./pages/Pricing"));
 const FAQ = lazy(() => import("./pages/FAQ"));
 const Booking = lazy(() => import("./pages/Booking"));
 const Contact = lazy(() => import("./pages/Contact"));
+const About = lazy(() => import("./pages/About"));
 
 function LoadingScreen() {
   return (
@@ -67,7 +68,7 @@ function App() {
           <Route path="/booking" element={<Booking />} />
           <Route path="/contact" element={<Contact />} />
 
-          <Route path="*" element={<NotFound />} />
+          <Route path="/about" element={<About />} />
         </Routes>
       </Suspense>
 

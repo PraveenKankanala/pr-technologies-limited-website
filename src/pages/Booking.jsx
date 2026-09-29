@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   ArrowRight,
   CalendarDays,
@@ -5,19 +6,28 @@ import {
   Clock3,
   Mail,
   MessageCircle,
+  Phone,
+  Send,
   User,
 } from "lucide-react";
-import { useMemo, useState } from "react";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
 import { Link } from "react-router-dom";
+import { supabase } from "../lib/supabaseClient";
 import "./Booking.css";
 
+const initialForm = {
+  name: "",
+  email: "",
+  phone: "",
+  date: "",
+  time: "",
+  message: "",
+};
+
 const timeSlots = [
+  "09:00 AM",
   "10:00 AM",
   "11:00 AM",
   "12:00 PM",
-  "01:00 PM",
   "02:00 PM",
   "03:00 PM",
   "04:00 PM",
@@ -26,26 +36,10 @@ const timeSlots = [
 ];
 
 function Booking() {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [selectedTime, setSelectedTime] = useState("");
-
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    requirement: "",
-  });
-
-  const formattedDate = useMemo(
-    () =>
-      selectedDate.toLocaleDateString("en-IN", {
-        weekday: "long",
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      }),
-    [selectedDate],
-  );
+  const [formData, setFormData] = useState(initialForm);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -54,117 +48,203 @@ function Booking() {
       ...current,
       [name]: value,
     }));
+
+    setErrorMessage("");
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!selectedTime) {
-      alert("Please select an available time slot.");
+    setErrorMessage("");
+    setSuccess(false);
+
+    if (
+      !formData.name.trim() ||
+      !formData.email.trim() ||
+      !formData.phone.trim() ||
+      !formData.date ||
+      !formData.time
+    ) {
+      setErrorMessage("Please fill in all required fields.");
       return;
     }
 
-    alert(
-      `Booking request selected for ${formattedDate} at ${selectedTime}.`,
-    );
+    setIsSubmitting(true);
+
+    try {
+      /*
+       * STEP 1:
+       * Save the booking in Supabase.
+       */
+      const { data: booking, error: bookingError } = await supabase
+        .from("bookings")
+        .insert([
+          {
+            name: formData.name.trim(),
+            email: formData.email.trim(),
+            phone: formData.phone.trim(),
+            date: formData.date,
+            time: formData.time,
+            message: formData.message.trim(),
+          },
+        ])
+        .select()
+        .single();
+
+      if (bookingError) {
+        console.error("Supabase booking error:", bookingError);
+        throw new Error(
+          bookingError.message || "Unable to save your booking.",
+        );
+      }
+
+      /*
+       * STEP 2:
+       * Ask the secure Supabase Edge Function to send
+       * the WhatsApp notification.
+       *
+       * IMPORTANT:
+       * WhatsApp/Meta credentials stay inside the Edge Function,
+       * NOT inside this React file.
+       */
+      const { error: whatsappError } =
+        await supabase.functions.invoke("send-booking-whatsapp", {
+          body: {
+            booking: {
+              id: booking.id,
+              name: formData.name.trim(),
+              email: formData.email.trim(),
+              phone: formData.phone.trim(),
+              date: formData.date,
+              time: formData.time,
+              message: formData.message.trim(),
+            },
+          },
+        });
+
+      if (whatsappError) {
+        console.error("WhatsApp notification error:", whatsappError);
+
+        /*
+         * The booking was successfully saved even if
+         * WhatsApp notification failed.
+         */
+        setSuccess(true);
+        setErrorMessage(
+          "Your consultation was booked successfully. The WhatsApp notification could not be sent right now.",
+        );
+        return;
+      }
+
+      /*
+       * STEP 3:
+       * Everything succeeded.
+       */
+      setSuccess(true);
+      setFormData(initialForm);
+    } catch (error) {
+      console.error("Booking submission error:", error);
+
+      setErrorMessage(
+        error.message || "Something went wrong. Please try again.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <main className="booking-page">
       <section className="booking-hero">
-        <div className="booking-container">
-          <div className="booking-eyebrow">
-            <CalendarDays size={16} aria-hidden="true" />
-            Schedule a Conversation
+        <div className="booking-container booking-hero-grid">
+          <div className="booking-hero-content">
+            <span className="booking-eyebrow">
+              <CalendarDays size={16} aria-hidden="true" />
+              Book a Consultation
+            </span>
+
+            <h1>
+              Let's Discuss Your
+              <span> Website Project.</span>
+            </h1>
+
+            <p>
+              Choose a convenient date and time to discuss your website design,
+              web development, SEO, redesign, or e-commerce requirements with
+              PR Technologies.
+            </p>
+
+            <div className="booking-hero-points">
+              <div>
+                <CheckCircle2 size={19} aria-hidden="true" />
+                <span>Professional consultation</span>
+              </div>
+
+              <div>
+                <CheckCircle2 size={19} aria-hidden="true" />
+                <span>Discuss your exact requirements</span>
+              </div>
+
+              <div>
+                <CheckCircle2 size={19} aria-hidden="true" />
+                <span>Choose a convenient time slot</span>
+              </div>
+            </div>
           </div>
 
-          <h1>
-            Book a
-            <span> Consultation.</span>
-          </h1>
+          <div className="booking-hero-card">
+            <CalendarDays size={32} aria-hidden="true" />
 
-          <p>
-            Choose a convenient date and time to discuss your website,
-            e-commerce, redesign, SEO, or custom development requirements with
-            PR Technologies.
-          </p>
+            <h2>Book Your Slot</h2>
+
+            <p>
+              Tell us a little about your project and select your preferred
+              consultation time.
+            </p>
+          </div>
         </div>
       </section>
 
       <section className="booking-section">
         <div className="booking-container">
-          <div className="booking-grid">
-            <div className="booking-calendar-card">
+          <div className="booking-layout">
+            <div className="booking-form-card">
               <div className="booking-card-heading">
-                <CalendarDays size={22} aria-hidden="true" />
+                <span className="booking-small-label">CONSULTATION FORM</span>
 
-                <div>
-                  <span>Select a Date</span>
-                  <h2>Choose your preferred day</h2>
-                </div>
+                <h2>Schedule a Consultation</h2>
+
+                <p>
+                  Complete the form below. Your booking will be securely saved
+                  and our WhatsApp notification system will be triggered.
+                </p>
               </div>
 
-              <Calendar
-                onChange={setSelectedDate}
-                value={selectedDate}
-                minDate={new Date()}
-                next2Label={null}
-                prev2Label={null}
-              />
+              {success && (
+                <div className="booking-success" role="status">
+                  <CheckCircle2 size={22} aria-hidden="true" />
 
-              <div className="booking-selected-date">
-                <CheckCircle2 size={18} aria-hidden="true" />
-
-                <div>
-                  <span>Selected date</span>
-                  <strong>{formattedDate}</strong>
+                  <div>
+                    <strong>Consultation booked successfully!</strong>
+                    <p>
+                      Your booking has been saved. We will follow up with you
+                      regarding the consultation.
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </div>
+              )}
 
-            <div className="booking-details-card">
-              <div className="booking-card-heading">
-                <Clock3 size={22} aria-hidden="true" />
-
-                <div>
-                  <span>Select a Time</span>
-                  <h2>Available time slots</h2>
+              {errorMessage && (
+                <div className="booking-error" role="alert">
+                  {errorMessage}
                 </div>
-              </div>
+              )}
 
-              <div className="booking-slots" aria-label="Available time slots">
-                {timeSlots.map((time) => (
-                  <button
-                    key={time}
-                    type="button"
-                    className={`booking-slot ${
-                      selectedTime === time ? "is-selected" : ""
-                    }`}
-                    onClick={() => setSelectedTime(time)}
-                    aria-pressed={selectedTime === time}
-                  >
-                    <Clock3 size={15} aria-hidden="true" />
-                    {time}
-                  </button>
-                ))}
-              </div>
-
-              <div className="booking-divider" />
-
-              <form className="booking-form" onSubmit={handleSubmit}>
-                <div className="booking-form-heading">
-                  <h2>Your Details</h2>
-
-                  <p>
-                    Tell us a little about your project so we can prepare for
-                    the conversation.
-                  </p>
-                </div>
-
+              <form onSubmit={handleSubmit} noValidate>
                 <div className="booking-form-grid">
                   <div className="booking-field">
                     <label htmlFor="booking-name">
-                      <User size={15} aria-hidden="true" />
+                      <User size={16} aria-hidden="true" />
                       Full Name
                     </label>
 
@@ -182,7 +262,7 @@ function Booking() {
 
                   <div className="booking-field">
                     <label htmlFor="booking-email">
-                      <Mail size={15} aria-hidden="true" />
+                      <Mail size={16} aria-hidden="true" />
                       Email Address
                     </label>
 
@@ -198,9 +278,9 @@ function Booking() {
                     />
                   </div>
 
-                  <div className="booking-field booking-field-full">
+                  <div className="booking-field">
                     <label htmlFor="booking-phone">
-                      <MessageCircle size={15} aria-hidden="true" />
+                      <Phone size={16} aria-hidden="true" />
                       Phone / WhatsApp Number
                     </label>
 
@@ -216,61 +296,142 @@ function Booking() {
                     />
                   </div>
 
-                  <div className="booking-field booking-field-full">
-                    <label htmlFor="booking-requirement">
-                      Project Requirement
+                  <div className="booking-field">
+                    <label htmlFor="booking-date">
+                      <CalendarDays size={16} aria-hidden="true" />
+                      Preferred Date
+                    </label>
+
+                    <input
+                      id="booking-date"
+                      name="date"
+                      type="date"
+                      value={formData.date}
+                      onChange={handleChange}
+                      min={new Date().toISOString().split("T")[0]}
+                      required
+                    />
+                  </div>
+
+                  <div className="booking-field booking-full">
+                    <label htmlFor="booking-time">
+                      <Clock3 size={16} aria-hidden="true" />
+                      Preferred Time
+                    </label>
+
+                    <select
+                      id="booking-time"
+                      name="time"
+                      value={formData.time}
+                      onChange={handleChange}
+                      required
+                    >
+                      <option value="">Select a time slot</option>
+
+                      {timeSlots.map((slot) => (
+                        <option key={slot} value={slot}>
+                          {slot}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="booking-field booking-full">
+                    <label htmlFor="booking-message">
+                      <MessageCircle size={16} aria-hidden="true" />
+                      Tell Us About Your Project
                     </label>
 
                     <textarea
-                      id="booking-requirement"
-                      name="requirement"
-                      value={formData.requirement}
+                      id="booking-message"
+                      name="message"
+                      value={formData.message}
                       onChange={handleChange}
-                      placeholder="Tell us what you want to build..."
-                      rows="4"
+                      placeholder="Tell us what type of website you need..."
+                      rows="6"
                     />
                   </div>
                 </div>
 
-                <button className="booking-submit" type="submit">
-                  Request Booking
-                  <ArrowRight size={18} aria-hidden="true" />
+                <button
+                  type="submit"
+                  className="booking-submit"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    "Booking..."
+                  ) : (
+                    <>
+                      Book Consultation
+                      <Send size={18} aria-hidden="true" />
+                    </>
+                  )}
                 </button>
               </form>
             </div>
+
+            <aside className="booking-info">
+              <div className="booking-info-card">
+                <span className="booking-small-label">WHY BOOK WITH US?</span>
+
+                <h2>Plan Your Website With Clarity.</h2>
+
+                <p>
+                  A consultation helps us understand your business, target
+                  audience, website goals, functionality, and project scope
+                  before development begins.
+                </p>
+
+                <ul>
+                  <li>
+                    <CheckCircle2 size={18} aria-hidden="true" />
+                    Website design requirements
+                  </li>
+
+                  <li>
+                    <CheckCircle2 size={18} aria-hidden="true" />
+                    Development and functionality
+                  </li>
+
+                  <li>
+                    <CheckCircle2 size={18} aria-hidden="true" />
+                    SEO-friendly website structure
+                  </li>
+
+                  <li>
+                    <CheckCircle2 size={18} aria-hidden="true" />
+                    E-commerce and booking requirements
+                  </li>
+                </ul>
+              </div>
+
+              <div className="booking-contact-card">
+                <MessageCircle size={24} aria-hidden="true" />
+
+                <h3>Prefer WhatsApp?</h3>
+
+                <p>
+                  You can also contact PR Technologies directly for your
+                  website requirement.
+                </p>
+
+                <a
+                  href="https://wa.me/918309820381"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="booking-whatsapp"
+                >
+                  Chat on WhatsApp
+                  <ArrowRight size={17} aria-hidden="true" />
+                </a>
+              </div>
+
+              <Link to="/pricing" className="booking-pricing-link">
+                View Website Pricing
+                <ArrowRight size={17} aria-hidden="true" />
+              </Link>
+            </aside>
           </div>
-        </div>
-      </section>
-
-      <section className="booking-bottom">
-        <div className="booking-container">
-          <div className="booking-bottom-box">
-            <div>
-              <span>Prefer WhatsApp?</span>
-
-              <h2>Let's discuss your project directly.</h2>
-
-              <p>
-                You can also contact PR Technologies through WhatsApp if you
-                prefer a direct conversation.
-              </p>
-            </div>
-
-            <a
-              href="https://wa.me/918309820381?text=Hello%20PR%20Technologies%2C%20I%20would%20like%20to%20discuss%20a%20website%20project."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="booking-whatsapp"
-            >
-              <MessageCircle size={19} aria-hidden="true" />
-              WhatsApp Us
-            </a>
-          </div>
-
-          <Link className="booking-back-link" to="/contact">
-            Back to Contact
-            <ArrowRight size={17} aria-hidden="true" />
-          </Link>
         </div>
       </section>
     </main>
