@@ -1,17 +1,37 @@
 /* =========================================
    PRICING PAGE - PR TECHNOLOGIES
-   Premium Black & Gold Design
+   PREMIUM BLACK & GOLD DESIGN
 ========================================= */
 
 .pricing-page {
   min-height: 100vh;
   width: 100%;
   padding: 110px 6% 90px;
+
   background:
-    radial-gradient(circle at 20% 10%, rgba(212, 175, 55, 0.12), transparent 30%),
-    radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.08), transparent 30%),
+    radial-gradient(
+      circle at 20% 10%,
+      rgba(212, 175, 55, 0.12),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(212, 175, 55, 0.08),
+      transparent 30%
+    ),
     #050505;
+
   color: #ffffff;
+  box-sizing: border-box;
+}
+
+/* =========================================
+   FORCE BOX SIZING
+========================================= */
+
+.pricing-page *,
+.pricing-page *::before,
+.pricing-page *::after {
   box-sizing: border-box;
 }
 
@@ -33,9 +53,11 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
+
   margin-bottom: 18px;
 
   color: #d4af37;
+
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 2px;
@@ -51,6 +73,7 @@
   max-width: 900px;
 
   color: #ffffff;
+
   font-size: clamp(38px, 5vw, 68px);
   line-height: 1.08;
   font-weight: 700;
@@ -67,9 +90,11 @@
 
 .pricing-description {
   max-width: 800px;
+
   margin: 22px 0 55px;
 
   color: #bdbdbd;
+
   font-size: 17px;
   line-height: 1.7;
 }
@@ -80,8 +105,11 @@
 
 .pricing-grid {
   display: grid;
+
   grid-template-columns: repeat(3, 1fr);
+
   gap: 28px;
+
   align-items: stretch;
 }
 
@@ -91,10 +119,12 @@
 
 .pricing-card {
   position: relative;
+
   display: flex;
   flex-direction: column;
 
   min-height: 620px;
+
   padding: 38px 32px;
 
   background:
@@ -105,6 +135,7 @@
     );
 
   border: 1px solid rgba(212, 175, 55, 0.35);
+
   border-radius: 22px;
 
   box-shadow:
@@ -152,6 +183,7 @@
 
 .popular-badge {
   position: absolute;
+
   top: -15px;
   right: 25px;
 
@@ -171,9 +203,11 @@
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 1px;
+
   text-transform: uppercase;
 
-  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.25);
+  box-shadow:
+    0 8px 25px rgba(212, 175, 55, 0.25);
 }
 
 /* =========================================
@@ -188,6 +222,7 @@
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 2px;
+
   text-transform: uppercase;
 }
 
@@ -210,6 +245,7 @@
 
 .pricing-card-description {
   min-height: 75px;
+
   margin-bottom: 20px;
 
   color: #a9a9a9;
@@ -243,7 +279,7 @@
 }
 
 /* =========================================
-   PRICE SUBTEXT
+   PRICE NOTE
 ========================================= */
 
 .pricing-price-note {
@@ -261,6 +297,7 @@
 .pricing-divider {
   width: 100%;
   height: 1px;
+
   margin: 5px 0 25px;
 
   background:
@@ -292,6 +329,7 @@
 .pricing-features {
   display: flex;
   flex-direction: column;
+
   gap: 12px;
 
   margin: 0;
@@ -305,6 +343,7 @@
 
   display: flex;
   align-items: flex-start;
+
   gap: 10px;
 
   color: #d0d0d0;
@@ -312,10 +351,6 @@
   font-size: 14px;
   line-height: 1.5;
 }
-
-/* =========================================
-   GOLD CHECK MARK
-========================================= */
 
 .pricing-features li::before {
   content: "✓";
@@ -334,14 +369,88 @@
 
 .pricing-button-wrapper {
   margin-top: auto;
+
   padding-top: 30px;
 }
 
 /* =========================================
-   BUTTON
+   ALL PRICING PAGE LINKS
+   BLACK & GOLD ONLY
 ========================================= */
 
-.pricing-button {
+/*
+   This section prevents browser default
+   blue / purple / white link colors.
+*/
+
+.pricing-page a {
+  color: #d4af37;
+
+  text-decoration: none;
+
+  transition:
+    color 0.3s ease,
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+
+/* Visited links */
+.pricing-page a:visited {
+  color: #d4af37;
+}
+
+/* Hover links */
+.pricing-page a:hover {
+  color: #f7d774;
+}
+
+/* Active links */
+.pricing-page a:active {
+  color: #b8860b;
+}
+
+/* Keyboard focus */
+.pricing-page a:focus-visible {
+  outline: 2px solid #d4af37;
+
+  outline-offset: 4px;
+
+  border-radius: 4px;
+}
+
+/* =========================================
+   INTERNAL PAGE LINKS
+========================================= */
+
+.pricing-page .pricing-link,
+.pricing-page .internal-link {
+  color: #d4af37;
+
+  font-weight: 600;
+
+  text-decoration: none;
+}
+
+.pricing-page .pricing-link:visited,
+.pricing-page .internal-link:visited {
+  color: #d4af37;
+}
+
+.pricing-page .pricing-link:hover,
+.pricing-page .internal-link:hover {
+  color: #f7d774;
+
+  text-decoration: underline;
+}
+
+/* =========================================
+   PRICING BUTTON
+========================================= */
+
+.pricing-button,
+.pricing-button:visited {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -350,14 +459,16 @@
   min-height: 52px;
 
   border: 1px solid #d4af37;
+
   border-radius: 50px;
 
   background: transparent;
 
-  color: #d4af37;
+  color: #d4af37 !important;
 
   font-size: 14px;
   font-weight: 700;
+
   letter-spacing: 0.5px;
 
   text-decoration: none;
@@ -371,6 +482,8 @@
     box-shadow 0.3s ease;
 }
 
+/* Button hover */
+
 .pricing-button:hover {
   background: linear-gradient(
     135deg,
@@ -379,7 +492,7 @@
     #b8860b
   );
 
-  color: #080808;
+  color: #080808 !important;
 
   transform: translateY(-2px);
 
@@ -387,11 +500,20 @@
     0 10px 30px rgba(212, 175, 55, 0.25);
 }
 
+/* Button active */
+
+.pricing-button:active {
+  color: #080808 !important;
+
+  transform: translateY(0);
+}
+
 /* =========================================
    POPULAR BUTTON
 ========================================= */
 
-.pricing-card.popular .pricing-button {
+.pricing-card.popular .pricing-button,
+.pricing-card.popular .pricing-button:visited {
   background: linear-gradient(
     135deg,
     #f7d774,
@@ -399,12 +521,17 @@
     #b8860b
   );
 
-  color: #080808;
+  color: #080808 !important;
+
+  border-color: #d4af37;
 }
 
 .pricing-card.popular .pricing-button:hover {
   background: transparent;
-  color: #d4af37;
+
+  color: #d4af37 !important;
+
+  border-color: #d4af37;
 }
 
 /* =========================================
@@ -422,18 +549,19 @@
 
   height: 2px;
 
-  background: linear-gradient(
-    90deg,
-    transparent,
-    #d4af37,
-    transparent
-  );
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #d4af37,
+      transparent
+    );
 
   opacity: 0.5;
 }
 
 /* =========================================
-   RESPONSIVE - TABLET
+   TABLET
 ========================================= */
 
 @media (max-width: 1000px) {
@@ -447,14 +575,17 @@
 
   .pricing-card:last-child {
     grid-column: 1 / -1;
+
     max-width: 500px;
+
     width: 100%;
+
     margin: 0 auto;
   }
 }
 
 /* =========================================
-   RESPONSIVE - MOBILE
+   MOBILE
 ========================================= */
 
 @media (max-width: 700px) {
@@ -464,21 +595,25 @@
 
   .pricing-title {
     font-size: 40px;
+
     letter-spacing: -1px;
   }
 
   .pricing-description {
     font-size: 15px;
+
     margin-bottom: 45px;
   }
 
   .pricing-grid {
     grid-template-columns: 1fr;
+
     gap: 25px;
   }
 
   .pricing-card {
     min-height: auto;
+
     padding: 32px 25px;
   }
 
@@ -510,6 +645,7 @@
 
   .pricing-card {
     padding: 28px 20px;
+
     border-radius: 18px;
   }
 
@@ -523,6 +659,25 @@
 
   .popular-badge {
     right: 18px;
+
     font-size: 10px;
+  }
+}
+
+/* =========================================
+   REDUCE MOTION
+   ACCESSIBILITY
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pricing-card,
+  .pricing-button,
+  .pricing-page a {
+    transition: none;
+  }
+
+  .pricing-card:hover,
+  .pricing-button:hover {
+    transform: none;
   }
 }
